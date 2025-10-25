@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 * {
   margin: 0;
   padding: 0;
@@ -15,11 +11,10 @@ body {
   background: transparent;
   overflow: hidden;
   user-select: none;
-  -webkit-app-region: drag;
 }
 
 button {
-  -webkit-app-region: no-drag;
+  cursor: pointer;
 }
 
 .hexagon-clip {
