@@ -5,12 +5,13 @@ import './styles/honeycomb.css';
 
 // Worker bee agents - positioned in perfectly symmetric ring around queen
 // Flat-top hexagon neighbors of (0,0): right, down-right, down-left, left, up-left, up-right
+// Palette: Honey #D4A82A, Copper #D97C3E, Chestnut #A84D2C, Cocoa #663333, Dark Brown #3D2B2B
 const WORKER_AGENTS = [
   { 
     id: 1, 
     name: 'Planner', 
     description: 'Strategic Planning',
-    color: '#D4691C',
+    color: '#D97C3E',  // Copper
     hex: { row: 0, col: 1 },
     symbol: '□'
   },
@@ -18,7 +19,7 @@ const WORKER_AGENTS = [
     id: 2, 
     name: 'Writer', 
     description: 'Content Creation',
-    color: '#C85A1B',
+    color: '#A84D2C',  // Chestnut
     hex: { row: 1, col: 1 },
     symbol: '▸'
   },
@@ -26,7 +27,7 @@ const WORKER_AGENTS = [
     id: 3, 
     name: 'Researcher', 
     description: 'Data Analysis',
-    color: '#B84919',
+    color: '#D97C3E',  // Copper
     hex: { row: 1, col: 0 },
     symbol: '◆'
   },
@@ -34,7 +35,7 @@ const WORKER_AGENTS = [
     id: 4, 
     name: 'Analyst', 
     description: 'Performance Metrics',
-    color: '#A83817',
+    color: '#A84D2C',  // Chestnut
     hex: { row: 0, col: -1 },
     symbol: '▲'
   },
@@ -42,7 +43,7 @@ const WORKER_AGENTS = [
     id: 5, 
     name: 'Designer', 
     description: 'Visual Design',
-    color: '#B84919',
+    color: '#D97C3E',  // Copper
     hex: { row: -1, col: -1 },
     symbol: '◇'
   },
@@ -50,7 +51,7 @@ const WORKER_AGENTS = [
     id: 6, 
     name: 'Developer', 
     description: 'Implementation',
-    color: '#C85A1B',
+    color: '#A84D2C',  // Chestnut
     hex: { row: -1, col: 0 },
     symbol: '⬢'
   }
