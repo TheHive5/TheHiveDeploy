@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+button {
+  -webkit-app-region: no-drag;
+}
+
+.hexagon-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.hive-window {
+  background: linear-gradient(135deg, rgba(255, 251, 240, 0.95) 0%, rgba(255, 232, 168, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(253, 185, 19, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(139, 97, 22, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.bee-cell {
+  @apply rounded-lg transition-all duration-300 cursor-pointer;
+  -webkit-app-region: no-drag;
+}
+
+.bee-cell:hover {
+  @apply shadow-lg transform scale-105;
+}
+
+.bee-cell.active {
+  @apply animate-bee-pulse shadow-xl;
+}
+
+.bee-cell.completed {
+  @apply shadow-md;
+  box-shadow: 0 0 15px rgba(253, 185, 19, 0.6);
+}
+
+.header-bar {
+  -webkit-app-region: drag;
+  background: linear-gradient(90deg, rgba(253, 185, 19, 0.1) 0%, rgba(253, 185, 19, 0.05) 100%);
+}
+
+.window-controls {
+  -webkit-app-region: no-drag;
+}
