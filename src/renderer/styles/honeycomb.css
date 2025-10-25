@@ -15,7 +15,7 @@ body {
 .hive-app-geometric {
   width: 100vw;
   height: 100vh;
-  background: #FFC107;
+  background: #F5E6D3;
   position: fixed;
   top: 0;
   left: 0;
@@ -67,8 +67,8 @@ body {
   font-size: 56px;
   font-weight: 900;
   letter-spacing: 4px;
-  color: #5C4033;
-  text-shadow: 0 0 10px rgba(92, 64, 51, 0.2);
+  color: #8B4513;
+  text-shadow: 0 2px 8px rgba(139, 69, 19, 0.25);
   margin: 0;
   text-transform: uppercase;
   margin-top: 30px;
@@ -78,11 +78,11 @@ body {
 .hex-input-panel-bottom {
   z-index: 20;
   margin-bottom: 30px;
-  background: rgba(255, 193, 7, 0.95);
+  background: rgba(255, 248, 240, 0.98);
   padding: 20px 30px;
-  border: 3px solid #5C4033;
+  border: 3px solid #8B6F47;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(92, 64, 51, 0.3);
+  box-shadow: 0 8px 24px rgba(139, 111, 71, 0.25);
   max-width: 500px;
 }
 
@@ -111,9 +111,9 @@ body {
   padding: 12px 16px;
   font-size: 14px;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.9);
-  color: #5C4033;
-  border: 2px solid #5C4033;
+  background: rgba(253, 232, 200, 0.6);
+  color: #8B4513;
+  border: 2px solid #A0826D;
   border-radius: 6px;
   transition: all 0.3s ease;
   outline: none;
@@ -121,15 +121,15 @@ body {
 }
 
 .geometric-input::placeholder {
-  color: #999;
-  opacity: 0.7;
+  color: #A0826D;
+  opacity: 0.6;
 }
 
 .geometric-input:focus {
-  border-color: #FFD700;
-  box-shadow: 0 0 12px rgba(255, 193, 7, 0.4),
-              inset 0 0 8px rgba(255, 193, 7, 0.1);
-  background: rgba(255, 255, 255, 0.95);
+  border-color: #D4691C;
+  box-shadow: 0 0 12px rgba(212, 105, 28, 0.3),
+              inset 0 0 8px rgba(212, 105, 28, 0.08);
+  background: rgba(253, 232, 200, 0.85);
 }
 
 .geometric-input:disabled {
@@ -141,10 +141,10 @@ body {
 .hex-submit-btn {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  border: 2px solid #5C4033;
+  background: linear-gradient(135deg, #D4691C 0%, #B84919 100%);
+  border: 2px solid #8B4513;
   border-radius: 6px;
-  color: #5C4033;
+  color: #FFFFFF;
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
@@ -152,7 +152,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(92, 64, 51, 0.25);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
 }
 
 .submit-symbol {
@@ -161,8 +161,8 @@ body {
 
 .hex-submit-btn:hover:not(:disabled) {
   transform: scale(1.1);
-  box-shadow: 0 6px 18px rgba(92, 64, 51, 0.35),
-              inset 0 0 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 18px rgba(139, 69, 19, 0.4),
+              inset 0 0 10px rgba(255, 255, 255, 0.15);
 }
 
 .hex-submit-btn:active:not(:disabled) {
@@ -184,12 +184,12 @@ body {
   display: inline-block;
   padding: 8px 14px;
   border: 2px solid currentColor;
-  color: #5C4033;
+  color: #8B4513;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(253, 232, 200, 0.75);
   border-radius: 4px;
 }
 
@@ -206,10 +206,10 @@ body {
   max-width: 100%;
   z-index: 20;
   margin-bottom: 20px;
-  background: rgba(255, 193, 7, 0.95);
+  background: rgba(255, 248, 240, 0.98);
   padding: 16px 30px;
-  border: 3px solid #5C4033;
-  box-shadow: 0 6px 20px rgba(92, 64, 51, 0.2);
+  border: 3px solid #8B6F47;
+  box-shadow: 0 6px 20px rgba(139, 111, 71, 0.2);
   border-radius: 8px;
 }
 
@@ -218,7 +218,7 @@ body {
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #5C4033;
+  color: #8B4513;
   text-transform: uppercase;
   margin-bottom: 12px;
 }
@@ -241,8 +241,8 @@ body {
 .result-hex-inner {
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid #5C4033;
+  background: rgba(253, 232, 200, 0.7);
+  border: 2px solid #A0826D;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
@@ -251,13 +251,13 @@ body {
   gap: 4px;
   padding: 8px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(92, 64, 51, 0.15);
+  box-shadow: 0 2px 8px rgba(139, 111, 71, 0.15);
   transition: all 0.3s ease;
 }
 
 .result-hex-cell:hover .result-hex-inner {
-  box-shadow: 0 4px 12px rgba(92, 64, 51, 0.25),
-              inset 0 0 10px rgba(255, 193, 7, 0.1);
+  box-shadow: 0 4px 12px rgba(139, 111, 71, 0.25),
+              inset 0 0 10px rgba(212, 105, 28, 0.08);
   transform: scale(1.05);
 }
 
@@ -265,13 +265,13 @@ body {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #5C4033;
+  color: #8B4513;
   text-transform: uppercase;
 }
 
 .result-text {
   font-size: 9px;
-  color: #666;
+  color: #8B6F47;
   line-height: 1.2;
   word-break: break-word;
 }
@@ -289,13 +289,13 @@ body {
 
 @keyframes hex-pulse {
   0% {
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+    filter: drop-shadow(0 0 10px rgba(212, 105, 28, 0.3));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    filter: drop-shadow(0 0 20px rgba(212, 105, 28, 0.5));
   }
   100% {
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+    filter: drop-shadow(0 0 10px rgba(212, 105, 28, 0.3));
   }
 }
 

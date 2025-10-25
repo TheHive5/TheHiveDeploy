@@ -3,13 +3,14 @@ import { motion } from 'framer-motion';
 import HexGrid from './components/HexGrid';
 import './styles/honeycomb.css';
 
-// Worker bee agents - positioned in closest honeycomb cells to the queen
+// Worker bee agents - positioned in perfectly symmetric ring around queen
+// Flat-top hexagon neighbors of (0,0): right, down-right, down-left, left, up-left, up-right
 const WORKER_AGENTS = [
   { 
     id: 1, 
     name: 'Planner', 
     description: 'Strategic Planning',
-    color: '#FFA500',
+    color: '#D4691C',
     hex: { row: 0, col: 1 },
     symbol: '□'
   },
@@ -17,23 +18,23 @@ const WORKER_AGENTS = [
     id: 2, 
     name: 'Writer', 
     description: 'Content Creation',
-    color: '#FF9500',
-    hex: { row: 1, col: 0 },
+    color: '#C85A1B',
+    hex: { row: 1, col: 1 },
     symbol: '▸'
   },
   { 
     id: 3, 
     name: 'Researcher', 
     description: 'Data Analysis',
-    color: '#FF8500',
-    hex: { row: 1, col: -1 },
+    color: '#B84919',
+    hex: { row: 1, col: 0 },
     symbol: '◆'
   },
   { 
     id: 4, 
     name: 'Analyst', 
     description: 'Performance Metrics',
-    color: '#FF7500',
+    color: '#A83817',
     hex: { row: 0, col: -1 },
     symbol: '▲'
   },
@@ -41,16 +42,16 @@ const WORKER_AGENTS = [
     id: 5, 
     name: 'Designer', 
     description: 'Visual Design',
-    color: '#FF8500',
-    hex: { row: -1, col: 0 },
+    color: '#B84919',
+    hex: { row: -1, col: -1 },
     symbol: '◇'
   },
   { 
     id: 6, 
     name: 'Developer', 
     description: 'Implementation',
-    color: '#FF9500',
-    hex: { row: -1, col: 1 },
+    color: '#C85A1B',
+    hex: { row: -1, col: 0 },
     symbol: '⬢'
   }
 ];
