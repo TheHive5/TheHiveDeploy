@@ -3,54 +3,54 @@ import { motion } from 'framer-motion';
 import HexGrid from './components/HexGrid';
 import './styles/honeycomb.css';
 
-// Worker bee agents with specific hex positions on the grid
+// Worker bee agents - positioned in closest honeycomb cells to the queen
 const WORKER_AGENTS = [
   { 
     id: 1, 
     name: 'Planner', 
     description: 'Strategic Planning',
-    color: '#FFD700',
-    hex: { row: -3, col: 0 },
+    color: '#FFA500',
+    hex: { row: 0, col: 1 },
     symbol: '□'
   },
   { 
     id: 2, 
     name: 'Writer', 
     description: 'Content Creation',
-    color: '#FFC300',
-    hex: { row: -2, col: 2 },
+    color: '#FF9500',
+    hex: { row: 1, col: 0 },
     symbol: '▸'
   },
   { 
     id: 3, 
     name: 'Researcher', 
     description: 'Data Analysis',
-    color: '#FFB700',
-    hex: { row: 0, col: 3 },
+    color: '#FF8500',
+    hex: { row: 1, col: -1 },
     symbol: '◆'
   },
   { 
     id: 4, 
     name: 'Analyst', 
     description: 'Performance Metrics',
-    color: '#FFCB36',
-    hex: { row: 3, col: 2 },
+    color: '#FF7500',
+    hex: { row: 0, col: -1 },
     symbol: '▲'
   },
   { 
     id: 5, 
     name: 'Designer', 
     description: 'Visual Design',
-    color: '#FFDA00',
-    hex: { row: 3, col: -2 },
+    color: '#FF8500',
+    hex: { row: -1, col: 0 },
     symbol: '◇'
   },
   { 
     id: 6, 
     name: 'Developer', 
     description: 'Implementation',
-    color: '#FFEF00',
-    hex: { row: 0, col: -3 },
+    color: '#FF9500',
+    hex: { row: -1, col: 1 },
     symbol: '⬢'
   }
 ];
@@ -117,64 +117,26 @@ export default function App() {
         }}
       />
 
-      {/* Overlay UI: Input Panel and Results */}
+      {/* Overlay UI: Title at top, Input at bottom */}
       <div className="hive-content">
         
-        {/* Top: Hexagonal Input Panel */}
-        <motion.div
-          className="hex-input-panel"
+        {/* Top: Title */}
+        <motion.h1 
+          className="hive-title-top"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.1 }}
         >
-          <h1 className="hive-title">THE HIVE</h1>
-          
-          <div className="hex-input-container">
-            <div className="hex-input-field">
-              <input
-                type="text"
-                value={task}
-                onChange={(e) => setTask(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Describe your task..."
-                className="geometric-input"
-                disabled={loading}
-              />
-            </div>
+          THE HIVE
+        </motion.h1>
 
-            <button
-              onClick={submitTask}
-              disabled={!activeAgent || !task.trim() || loading}
-              className="hex-submit-btn"
-              style={{
-                opacity: activeAgent ? 1 : 0.5,
-                cursor: activeAgent ? 'pointer' : 'not-allowed'
-              }}
-            >
-              <span className="submit-symbol">⬆</span>
-            </button>
-          </div>
-
-          {activeAgentData && (
-            <motion.div
-              className="active-agent-display"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <span className="agent-badge" style={{ borderColor: activeAgentData.color }}>
-                {activeAgentData.name} — {activeAgentData.description}
-              </span>
-            </motion.div>
-          )}
-        </motion.div>
-
-        {/* Bottom: Task History Hexagonal Panel */}
+        {/* Bottom: Results (if any) */}
         {results.length > 0 && (
           <motion.div
             className="hex-results-panel"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.3 }}
           >
             <h2 className="results-title">Task History</h2>
             <div className="results-hex-grid">
@@ -199,6 +161,54 @@ export default function App() {
             </div>
           </motion.div>
         )}
+
+        {/* Bottom: Input Panel */}
+        <motion.div
+          className="hex-input-panel-bottom"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className="input-content">
+            <div className="hex-input-container">
+              <div className="hex-input-field">
+                <input
+                  type="text"
+                  value={task}
+                  onChange={(e) => setTask(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Enter task..."
+                  className="geometric-input"
+                  disabled={loading}
+                />
+              </div>
+
+              <button
+                onClick={submitTask}
+                disabled={!activeAgent || !task.trim() || loading}
+                className="hex-submit-btn"
+                style={{
+                  opacity: activeAgent ? 1 : 0.5,
+                  cursor: activeAgent ? 'pointer' : 'not-allowed'
+                }}
+              >
+                <span className="submit-symbol">⬆</span>
+              </button>
+            </div>
+
+            {activeAgentData && (
+              <motion.div
+                className="active-agent-display"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <span className="agent-badge" style={{ borderColor: activeAgentData.color }}>
+                  {activeAgentData.name} — {activeAgentData.description}
+                </span>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
       </div>
     </div>
   );
