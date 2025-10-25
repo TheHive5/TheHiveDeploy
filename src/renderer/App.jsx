@@ -43,13 +43,6 @@ export default function App() {
 
   return (
     <div className="hive-app">
-      {/* Background */}
-      <div className="hive-background">
-        <div className="sparkle sparkle-1"></div>
-        <div className="sparkle sparkle-2"></div>
-        <div className="sparkle sparkle-3"></div>
-      </div>
-
       <div className="hive-container">
         {/* Task Input Panel - Top */}
         <motion.div 
