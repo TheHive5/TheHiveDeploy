@@ -15,7 +15,7 @@ body {
 .hive-app-geometric {
   width: 100vw;
   height: 100vh;
-  background: #1a1410;
+  background: #3d3300;
   position: fixed;
   top: 0;
   left: 0;
@@ -25,21 +25,12 @@ body {
   justify-content: center;
 }
 
-/* Hexagonal Grid Background */
-.hex-grid-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
+/* Hexagonal Grid Background - Now with integrated Queen and Workers */
 .hex-grid-svg {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .hex-cell {
@@ -48,6 +39,7 @@ body {
 
 .hex-outline {
   filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3));
+  transition: stroke-width 0.2s ease;
 }
 
 /* Main Content */
@@ -60,7 +52,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 40px 20px;
+  padding: 60px 20px;
   pointer-events: none;
 }
 
@@ -74,6 +66,12 @@ body {
   text-align: center;
   max-width: 600px;
   z-index: 20;
+  margin-bottom: 40px;
+  background: rgba(61, 51, 0, 0.7);
+  padding: 30px;
+  border: 2px solid #FFD700;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
 }
 
 .hive-title {
@@ -83,7 +81,7 @@ body {
   color: #FFD700;
   text-shadow: 0 0 20px rgba(255, 215, 0, 0.4),
                0 0 40px rgba(255, 195, 0, 0.2);
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   text-transform: uppercase;
 }
 
@@ -93,7 +91,7 @@ body {
   gap: 15px;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .hex-input-field {
@@ -172,7 +170,7 @@ body {
 
 /* Active Agent Display */
 .active-agent-display {
-  margin-top: 15px;
+  margin-top: 8px;
 }
 
 .agent-badge {
@@ -188,175 +186,11 @@ body {
   background: rgba(26, 20, 16, 0.8);
 }
 
-/* ============== CENTRAL HONEYCOMB ============== */
-
-.central-honeycomb {
-  position: relative;
-  width: 500px;
-  height: 550px;
+/* Geometric Bee Animation */
+.geometric-bee-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1000px;
-  z-index: 15;
-}
-
-/* Queen Hex Cell - Center */
-.queen-hex-cell {
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 50;
-  cursor: default;
-}
-
-.queen-hex-cell .hex-inner {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #FFD700 0%, #FFC300 100%);
-  border: 3px solid #D4AF37;
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  position: relative;
-  overflow: hidden;
-}
-
-.queen-label {
-  font-size: 14px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  color: #1a1410;
-  text-transform: uppercase;
-}
-
-.queen-status {
-  font-size: 10px;
-  color: #2a2420;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.honeycomb-meter {
-  width: 80%;
-  height: 4px;
-  background: rgba(26, 20, 16, 0.3);
-  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-  margin-top: 6px;
-  overflow: hidden;
-  position: relative;
-}
-
-.meter-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #FFEF00, #FFD700);
-  width: 0%;
-  transition: width 0.6s ease;
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-}
-
-/* Worker Hex Cells */
-.worker-hex-cell {
-  position: absolute;
-  width: 110px;
-  height: 110px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 30;
-}
-
-.worker-hex-cell .hex-inner {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #2a2420 0%, #1f1b17 100%);
-  border: 2.5px solid var(--agent-color, #FFD700);
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-/* Hexagonal positioning around Queen */
-.worker-hex-cell:nth-child(2) {
-  top: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.worker-hex-cell:nth-child(3) {
-  top: -40px;
-  left: 85%;
-  transform: translateX(-50%);
-}
-
-.worker-hex-cell:nth-child(4) {
-  top: 110px;
-  left: 85%;
-  transform: translateX(-50%);
-}
-
-.worker-hex-cell:nth-child(5) {
-  top: 190px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.worker-hex-cell:nth-child(6) {
-  top: 110px;
-  left: 15%;
-  transform: translateX(-50%);
-}
-
-.worker-hex-cell:nth-child(7) {
-  top: -40px;
-  left: 15%;
-  transform: translateX(-50%);
-}
-
-.worker-hex-cell.active .hex-inner {
-  background: linear-gradient(135deg, var(--agent-color, #FFD700), var(--agent-color, #FFD700));
-  border-color: #FFEF00;
-}
-
-.worker-hex-cell.active .worker-label,
-.worker-hex-cell.active .agent-symbol {
-  color: #1a1410;
-  font-weight: 900;
-}
-
-.worker-hex-cell:hover .hex-inner {
-  background: linear-gradient(135deg, var(--agent-color, #FFD700), var(--agent-color, #FFD700));
-}
-
-.worker-hex-cell:hover .worker-label,
-.worker-hex-cell:hover .agent-symbol {
-  color: #1a1410;
-}
-
-.agent-symbol {
-  font-size: 20px;
-  color: var(--agent-color, #FFD700);
-  transition: all 0.3s ease;
-  font-weight: 700;
-}
-
-.worker-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: var(--agent-color, #FFD700);
-  transition: all 0.3s ease;
-  text-transform: uppercase;
 }
 
 /* ============== BOTTOM RESULTS PANEL ============== */
@@ -364,6 +198,12 @@ body {
 .hex-results-panel {
   max-width: 100%;
   z-index: 20;
+  margin-bottom: 40px;
+  background: rgba(61, 51, 0, 0.7);
+  padding: 25px 40px;
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  border-radius: 8px;
 }
 
 .results-title {

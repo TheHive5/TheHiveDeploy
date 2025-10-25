@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import HexGrid from './components/HexGrid';
-import GeometricBee from './components/GeometricBee';
 import './styles/honeycomb.css';
 
-// Worker bee agents with specific hex positions
+// Worker bee agents with specific hex positions on the grid
 const WORKER_AGENTS = [
   { 
     id: 1, 
@@ -104,14 +103,21 @@ export default function App() {
 
   return (
     <div className="hive-app-geometric" ref={containerRef}>
-      {/* Full-screen hexagonal grid background */}
-      <div className="hex-grid-background">
-        <HexGrid width={typeof window !== 'undefined' ? window.innerWidth : 1400} 
-                 height={typeof window !== 'undefined' ? window.innerHeight : 900}
-                 hexSize={50} />
-      </div>
+      {/* Full-screen hexagonal grid - integrated with Queen and Workers */}
+      <HexGrid 
+        width={typeof window !== 'undefined' ? window.innerWidth : 1400} 
+        height={typeof window !== 'undefined' ? window.innerHeight : 900}
+        hexSize={50}
+        workers={WORKER_AGENTS}
+        activeAgent={activeAgent ? `${WORKER_AGENTS.find(a => a.id === activeAgent)?.hex.row}_${WORKER_AGENTS.find(a => a.id === activeAgent)?.hex.col}` : null}
+        onSelectAgent={(hexId) => {
+          const [row, col] = hexId.split('_').map(Number);
+          const agent = WORKER_AGENTS.find(a => a.hex.row === row && a.hex.col === col);
+          if (agent) setActiveAgent(agent.id);
+        }}
+      />
 
-      {/* Main content overlay */}
+      {/* Overlay UI: Input Panel and Results */}
       <div className="hive-content">
         
         {/* Top: Hexagonal Input Panel */}
@@ -160,70 +166,6 @@ export default function App() {
               </span>
             </motion.div>
           )}
-        </motion.div>
-
-        {/* Center: Queen Bee and Worker Hexagons */}
-        <motion.div
-          className="central-honeycomb"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, type: 'spring' }}
-        >
-          {/* Queen Bee - Central Hex */}
-          <motion.div
-            className="queen-hex-cell"
-            animate={{
-              boxShadow: [
-                '0 0 20px rgba(255, 215, 0, 0.3)',
-                '0 0 40px rgba(255, 195, 0, 0.6)',
-                '0 0 20px rgba(255, 215, 0, 0.3)'
-              ]
-            }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-          >
-            <div className="hex-inner">
-              <GeometricBee size={60} type="queen" color="#FFD700" />
-              <div className="queen-label">QUEEN</div>
-              <div className="queen-status">Command Center</div>
-              <div className="honeycomb-meter">
-                <div className="meter-fill" style={{ width: `${honeycombFill}%` }}></div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Worker Bees - Surrounding Hexagons */}
-          {WORKER_AGENTS.map((agent) => (
-            <motion.div
-              key={agent.id}
-              className={`worker-hex-cell ${activeAgent === agent.id ? 'active' : ''}`}
-              style={{
-                '--agent-color': agent.color,
-                '--hex-row': agent.hex.row,
-                '--hex-col': agent.hex.col
-              }}
-              onClick={() => setActiveAgent(agent.id)}
-              onMouseEnter={() => setHoveredAgent(agent.id)}
-              onMouseLeave={() => setHoveredAgent(null)}
-              whileHover={{ scale: 1.12 }}
-              whileTap={{ scale: 0.95 }}
-              animate={{
-                boxShadow: activeAgent === agent.id
-                  ? `0 0 25px ${agent.color}, inset 0 0 15px ${agent.color}60`
-                  : `0 0 10px ${agent.color}40`
-              }}
-            >
-              <div className="hex-inner">
-                <GeometricBee
-                  size={45}
-                  type="worker"
-                  color={agent.color}
-                  isActive={activeAgent === agent.id}
-                />
-                <div className="agent-symbol">{agent.symbol}</div>
-                <div className="worker-label">{agent.name}</div>
-              </div>
-            </motion.div>
-          ))}
         </motion.div>
 
         {/* Bottom: Task History Hexagonal Panel */}
