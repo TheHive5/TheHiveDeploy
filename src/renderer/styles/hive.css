@@ -16,12 +16,12 @@ html, body {
 
 body {
     font-family: 'Exo', 'Orbitron', sans-serif;
-    background-color: #181818;
+    background-color: #181818 !important;
     background-image: 
         radial-gradient(circle at center, rgba(255,216,92,0.08), rgba(24,24,24,1) 80%),
-        url('../assets/honeycomb-bg.svg');
-    background-repeat: repeat;
-    background-size: 140px 120px;
+        url('./assets/honeycomb-bg.svg') !important;
+    background-repeat: repeat !important;
+    background-size: 140px 120px !important;
     background-attachment: fixed;
     color: #FFD85C;
     height: 100vh;
