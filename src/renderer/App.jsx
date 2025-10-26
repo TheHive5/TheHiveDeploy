@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './styles/hive.css';
 
-// Sample mod data
+// Sample mod data - 8 mods for the grid
 const mockMods = [
     { id: 1, name: "OptiFine", status: "stable", type: "Performance" },
     { id: 2, name: "JourneyMap", status: "stable", type: "Utility" },
@@ -18,6 +18,7 @@ export default function App() {
     const [activeTab, setActiveTab] = useState('details');
     const [isScanning, setIsScanning] = useState(false);
     const [mods, setMods] = useState(mockMods);
+    const sidePanelRef = useRef(null);
 
     const handleHarmonyCheck = () => {
         setIsScanning(true);
@@ -30,8 +31,28 @@ export default function App() {
         }, 3000);
     };
 
-    const showModDetails = (mod) => {
+    const openPanel = (mod) => {
         setSelectedMod(mod);
+        setActiveTab('details');
+        if (sidePanelRef.current) {
+            sidePanelRef.current.classList.add('open');
+        }
+    };
+
+    const closePanel = () => {
+        setSelectedMod(null);
+        if (sidePanelRef.current) {
+            sidePanelRef.current.classList.remove('open');
+        }
+    };
+
+    // Close panel when clicking outside
+    const handleMainClick = (e) => {
+        if (sidePanelRef.current && sidePanelRef.current.classList.contains('open')) {
+            if (!sidePanelRef.current.contains(e.target) && !e.target.closest('.hex-cell')) {
+                closePanel();
+            }
+        }
     };
 
     return (
@@ -39,12 +60,11 @@ export default function App() {
             {/* Top Bar */}
             <header className="top-bar">
                 <div className="logo">THE HIVE</div>
-                <div className="subtitle">Minecraft Mod Manager</div>
             </header>
 
             {/* Main Container */}
-            <main className="main-container">
-                {/* Central Hive Grid */}
+            <main className="main-container" onClick={handleMainClick}>
+                {/* Central Hive Grid - Fills entire space */}
                 <div className="hive-container">
                     <div className="hive-grid" id="hiveGrid">
                         {mods.map((mod) => (
@@ -53,15 +73,16 @@ export default function App() {
                                 className={`hex-cell ${mod.status}`}
                                 data-mod-id={mod.id}
                                 title={`${mod.name} - ${mod.status}`}
-                                onClick={() => showModDetails(mod)}
-                                style={{ cursor: 'pointer' }}
+                                onClick={() => openPanel(mod)}
                             />
                         ))}
                     </div>
                 </div>
 
-                {/* Right Side Panel */}
-                <aside className="side-panel" id="sidePanel">
+                {/* Right Side Panel - Hidden by default */}
+                <aside className="side-panel" id="sidePanel" ref={sidePanelRef}>
+                    <button className="close-btn" onClick={closePanel}>×</button>
+                    
                     <div className="panel-tabs">
                         <button 
                             className={`tab ${activeTab === 'details' ? 'active' : ''}`}
@@ -85,14 +106,13 @@ export default function App() {
                             Backups
                         </button>
                     </div>
+                    
                     <div className="panel-content">
                         {activeTab === 'details' && (
                             <div className="tab-content active" id="details">
                                 {selectedMod ? (
                                     <div>
-                                        <h3 style={{ color: '#FFD85C', marginBottom: '15px' }}>
-                                            {selectedMod.name}
-                                        </h3>
+                                        <h3>{selectedMod.name}</h3>
                                         <p><strong>Type:</strong> {selectedMod.type}</p>
                                         <p>
                                             <strong>Status:</strong>{' '}
