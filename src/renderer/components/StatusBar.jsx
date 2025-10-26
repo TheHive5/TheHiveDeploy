@@ -1,40 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const StatusBar = ({ workerStatus }) => {
-  const getStatusMessage = (status) => {
-    switch (status) {
-      case 'scanning': return '🔍 Scanning mods...';
-      case 'verifying': return '✓ Verifying dependencies...';
-      case 'updating': return '⚡ Updating mods...';
-      default: return '◇ Ready';
-    }
-  };
-
-  const beeAnimations = ['◇', '◈', '◇'];
-  const [beeIndex, setBeeIndex] = useState(0);
+  const [beeSymbol, setBeeSymbol] = useState('◇');
 
   useEffect(() => {
+    const symbols = ['◇', '◈', '◆'];
+    let index = 0;
     const interval = setInterval(() => {
-      setBeeIndex(prev => (prev + 1) % beeAnimations.length);
+      setBeeSymbol(symbols[index % symbols.length]);
+      index++;
     }, 200);
     return () => clearInterval(interval);
   }, []);
 
+  const statusMessages = {
+    idle: 'Ready',
+    scanning: 'Scanning mods...',
+    verifying: 'Verifying dependencies...',
+    updating: 'Updating...'
+  };
+
   return (
-    <footer className="status-bar">
-      <div className="status-content">
-        <div className="worker-bees">
-          <span className="bee">◇</span>
-          <span className="bee">◈</span>
-          <span className="bee animated">{beeAnimations[beeIndex]}</span>
-          <span className="bee">◆</span>
-          <span className="bee">◇</span>
-        </div>
-        <div className="status-message">
-          {getStatusMessage(workerStatus)}
-        </div>
+    <div className="status-bar">
+      <div className="status-bee">
+        <span className="bee-symbol">{beeSymbol}</span>
       </div>
-    </footer>
+      <div className="status-text">
+        <span className="status-label">{statusMessages[workerStatus]}</span>
+      </div>
+    </div>
   );
 };
 

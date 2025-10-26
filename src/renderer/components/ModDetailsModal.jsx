@@ -9,72 +9,78 @@ const ModDetailsModal = ({ mod, onClose, linkedMods }) => {
     return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  if (!mod) return null;
-
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="mod-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>✕</button>
+
         <div className="modal-header">
           <h1>{mod.name}</h1>
-          <button className="modal-close" onClick={onClose}>✕</button>
+          <p className="mod-version">v{mod.version}</p>
         </div>
 
         <div className="modal-body">
-          <div className="mod-header-info">
-            <div className="mod-version">v{mod.version}</div>
-            <div className={`mod-status status-${mod.status}`}>
-              {mod.status.toUpperCase()}
+          <div className="modal-section">
+            <h2>Compatibility Score</h2>
+            <div className="compatibility-circle">
+              <svg viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="90" className="compat-bg" />
+                <circle 
+                  cx="100" 
+                  cy="100" 
+                  r="90" 
+                  className="compat-fill"
+                  style={{
+                    strokeDasharray: `${(mod.compatibility / 100) * 565.48} 565.48`
+                  }}
+                />
+              </svg>
+              <div className="compat-text-center">
+                <span className="compat-number">{mod.compatibility}%</span>
+                <span className="compat-label">Compatible</span>
+              </div>
             </div>
           </div>
 
-          <div className="mod-details-grid">
-            <div className="detail-section">
-              <h3>Overview</h3>
-              <p className="mod-type">Type: {mod.type}</p>
-              <p className="mod-description">
-                A high-quality modification providing enhanced features and improvements to your Minecraft instance.
-              </p>
+          <div className="modal-section">
+            <h2>Details</h2>
+            <div className="detail-grid">
+              <div className="detail-item">
+                <label>Type</label>
+                <span>{mod.type}</span>
+              </div>
+              <div className="detail-item">
+                <label>Status</label>
+                <span className={`status-badge status-${mod.status}`}>
+                  {mod.status.toUpperCase()}
+                </span>
+              </div>
             </div>
+          </div>
 
-            <div className="detail-section">
-              <h3>Compatibility Score</h3>
-              <div className="large-compatibility">
-                <div className="circle-progress" style={{ 
-                  background: `conic-gradient(#FFD85C 0deg ${mod.compatibility * 3.6}deg, #C68E17 ${mod.compatibility * 3.6}deg)` 
-                }}>
-                  <div className="progress-inner">
-                    <span>{mod.compatibility}%</span>
+          <div className="modal-section">
+            <h2>Dependencies</h2>
+            {linkedMods && linkedMods.length > 0 ? (
+              <div className="dependencies-tree">
+                {linkedMods.map(linked => (
+                  <div key={linked.id} className="tree-item">
+                    <div className={`tree-dot tree-status-${linked.status}`}></div>
+                    <span>{linked.name}</span>
+                    <span className="tree-version">v{linked.version}</span>
                   </div>
-                </div>
+                ))}
               </div>
-            </div>
-
-            {linkedMods.length > 0 && (
-              <div className="detail-section">
-                <h3>Dependencies ({linkedMods.length})</h3>
-                <div className="dependencies-list">
-                  {linkedMods.map(linked => (
-                    <div key={linked.id} className="dep-item">
-                      <div className="dep-icon">◆</div>
-                      <div className="dep-info">
-                        <div className="dep-name">{linked.name}</div>
-                        <div className={`dep-status status-${linked.status}`}>
-                          {linked.status}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            ) : (
+              <p className="no-dependencies">No dependencies</p>
             )}
           </div>
-        </div>
 
-        <div className="modal-actions">
-          <button className="action-primary">🔧 Repair</button>
-          <button className="action-primary">⚡ Update</button>
-          <button className="action-primary">🔒 Lock Version</button>
-          <button className="action-danger">🗑 Remove</button>
+          <div className="modal-actions">
+            <button className="action-btn action-repair">Repair</button>
+            <button className="action-btn action-update">Update</button>
+            <button className="action-btn action-lock">Lock</button>
+            <button className="action-btn action-remove">Remove</button>
+          </div>
         </div>
       </div>
     </div>

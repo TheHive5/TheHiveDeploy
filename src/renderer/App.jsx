@@ -17,7 +17,7 @@ const MOCK_MODS = [
   { id: 8, name: 'Create', status: 'stable', version: '0.5.1', linkedTo: [2, 3], type: 'Mod', compatibility: 88 },
 ];
 
-export default function App() {
+function App() {
   const [selectedMod, setSelectedMod] = useState(null);
   const [mods, setMods] = useState(MOCK_MODS);
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -50,8 +50,8 @@ export default function App() {
       {/* Header */}
       <header className="hive-header">
         <div className="hive-brand">
-          <h1>The Hive</h1>
-          <p className="tagline">Where every mod finds its place</p>
+          <h1>🐝 The Hive</h1>
+          <p className="tagline">Modding Manager</p>
         </div>
         <button 
           className="sidebar-toggle"
@@ -100,3 +100,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
