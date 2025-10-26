@@ -14,7 +14,7 @@
   </defs>
 
   <!-- Hexagon Grid Pattern -->
-  <g fill="none" stroke="url(#glow)" stroke-width="3" filter="url(#honey-glow)">
+  <g fill="none" stroke="url(#glow)" stroke-width="3">
     <!-- First Row -->
     <polygon points="40,0 80,0 100,35 80,70 40,70 20,35"/>
     <polygon points="120,0 160,0 180,35 160,70 120,70 100,35"/>
