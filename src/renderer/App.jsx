@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './styles/hive.css';
 
-// Sample mod data - 8 mods for the grid
+// Sample mod data - 8 mods that will fill specific hex positions
 const mockMods = [
     { id: 1, name: "OptiFine", status: "stable", type: "Performance" },
     { id: 2, name: "JourneyMap", status: "stable", type: "Utility" },
@@ -13,20 +13,44 @@ const mockMods = [
     { id: 8, name: "Waystones", status: "warning", type: "Utility" }
 ];
 
+// Generate a 20x20 honeycomb grid (400 hexes) - only some have mods
+const generateHexGrid = () => {
+    const grid = [];
+    const modIndices = [25, 67, 88, 123, 156, 189, 234, 267]; // Scattered positions
+    
+    for (let i = 0; i < 400; i++) {
+        const modIdx = modIndices.indexOf(i);
+        if (modIdx !== -1) {
+            grid.push({
+                ...mockMods[modIdx],
+                gridId: i
+            });
+        } else {
+            grid.push({
+                gridId: i,
+                name: null,
+                status: null,
+                type: null
+            });
+        }
+    }
+    return grid;
+};
+
 export default function App() {
     const [selectedMod, setSelectedMod] = useState(null);
     const [activeTab, setActiveTab] = useState('details');
     const [isScanning, setIsScanning] = useState(false);
-    const [mods, setMods] = useState(mockMods);
+    const [hexGrid, setHexGrid] = useState(generateHexGrid());
     const sidePanelRef = useRef(null);
 
     const handleHarmonyCheck = () => {
         setIsScanning(true);
         setTimeout(() => {
             setIsScanning(false);
-            // Update some mods randomly
-            setMods(mods.map((mod, idx) => 
-                idx === 2 ? { ...mod, status: 'stable' } : mod
+            // Simulate harmony check - update grid
+            setHexGrid(hexGrid.map(cell => 
+                cell.status === 'warning' ? { ...cell, status: 'stable' } : cell
             ));
         }, 3000);
     };
@@ -67,13 +91,14 @@ export default function App() {
                 {/* Central Hive Grid - Fills entire space */}
                 <div className="hive-container">
                     <div className="hive-grid" id="hiveGrid">
-                        {mods.map((mod) => (
+                        {hexGrid.map((cell) => (
                             <div
-                                key={mod.id}
-                                className={`hex-cell ${mod.status}`}
-                                data-mod-id={mod.id}
-                                title={`${mod.name} - ${mod.status}`}
-                                onClick={() => openPanel(mod)}
+                                key={cell.gridId}
+                                className={`hex-cell ${cell.status ? cell.status : ''}`}
+                                data-grid-id={cell.gridId}
+                                title={cell.name ? `${cell.name} - ${cell.status}` : ''}
+                                onClick={() => cell.name && openPanel(cell)}
+                                style={{ cursor: cell.name ? 'pointer' : 'default' }}
                             />
                         ))}
                     </div>
